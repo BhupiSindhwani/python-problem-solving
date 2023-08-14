@@ -31,6 +31,13 @@ def invert_binary_tree(root: Optional[TreeNode]) -> Optional[TreeNode]:
     return root
 
 
+def print_binary_tree(root: Optional[TreeNode]) -> None:
+    if root:
+        print_binary_tree(root.left)
+        print_binary_tree(root.right)
+        print(root.val, end=" ")
+
+
 if __name__ == "__main__":
     tree_node = TreeNode(4)
     tree_node.left = TreeNode(2)
@@ -40,4 +47,9 @@ if __name__ == "__main__":
     tree_node.right.left = TreeNode(6)
     tree_node.right.right = TreeNode(9)
 
-    invert_binary_tree(tree_node)
+    print("Before Inverting:")
+    print_binary_tree(tree_node)  # before inverting
+    tree_node = invert_binary_tree(tree_node)
+    print()
+    print("After Inverting:")
+    print_binary_tree(tree_node)  # after inverting
