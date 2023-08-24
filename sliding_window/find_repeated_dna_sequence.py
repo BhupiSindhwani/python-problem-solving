@@ -16,21 +16,28 @@ def find_repeated_dna_sequence(s: str, k: int) -> set:
     Returns:
         all the contiguous subsequences (substrings) of length k that occur more than one in the input string
     """
-    start, end = 0, 0
-
+    # Solution using polynomial rolling hash
+    mapping = {'A': 1, 'C': 2, 'G': 3, 'T': 4}
+    hash_value = 0
     sequences = set()
     output = set()
+    a = 4  # base value
 
-    while end < len(s):
-        if end - start + 1 <= k:
-            end += 1
+    numbers = [0] * len(s)
+    hi_power = pow(a, k - 1)
+
+    for idx, ch in enumerate(s):
+        numbers[idx] = mapping[ch]
+
+    for start in range(len(s) - k + 1):
+        if start == 0:
+            for end in range(k):
+                hash_value += numbers[end] * (a ** (k - end - 1))
         else:
-            if s[start: end] in sequences:
-                output.add(s[start: end])
-            else:
-                sequences.add(s[start: end])
-            end += 1
-            start += 1
+            hash_value = ((hash_value - (numbers[start - 1] * hi_power)) * a) + numbers[start + k - 1]
+        if hash_value in sequences:
+            output.add(s[start: start + k])
+        sequences.add(hash_value)
 
     return output
 
