@@ -1,6 +1,3 @@
-import math
-
-
 def decoded_string_at_index(s: str, k: int) -> str:
     """
     You are given an encoded string s. To decode the string to a tape, the encoded string is read one character
