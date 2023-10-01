@@ -28,16 +28,31 @@ def car_fleet(target: int, position: List[int], speed: List[int]) -> int:
     Returns:
         the number of car fleets that will arrive at the destination
     """
-    pairs = [(p, s) for p,s in zip(position, speed)]
-    stack = []
+    # # Solution using stack
+    # pairs = [(p, s) for p,s in zip(position, speed)]
+    # stack = []
+    #
+    # for p, s in sorted(pairs)[::-1]:
+    #     time = (target - p) / s
+    #     stack.append(time)
+    #     if len(stack) >= 2 and time <= stack[-2]:
+    #         stack.pop()
+    #
+    # return len(stack)
 
-    for p, s in sorted(pairs)[::-1]:
-        time = (target - p) / s
-        stack.append(time)
-        if len(stack) >= 2 and time <= stack[-2]:
-            stack.pop()
+    # Solution using counter
+    pos_speed = list(zip(position, speed))
+    pos_speed.sort(key=lambda x: x[0], reverse=True)
 
-    return len(stack)
+    num_fleets = 1
+    prev_time = (target - pos_speed[0][0]) / pos_speed[0][1]
+    for pos, sp in pos_speed:
+        curr_time = (target - pos) / sp
+        if prev_time < curr_time:
+            num_fleets += 1
+            prev_time = curr_time
+
+    return num_fleets
 
 
 if __name__ == "__main__":
