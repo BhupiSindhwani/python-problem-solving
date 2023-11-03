@@ -21,11 +21,7 @@ def interleaving_string(s1: str, s2: str, s3: str) -> bool:
     """
     dp = {}
 
-    def helper(ix1, ix2, ix3, sc1, sc2, is_s1):
-        # # Base condition: count of substrings
-        # if abs(sc1 - sc2) > 1:
-        #     return False
-
+    def helper(ix1, ix2, ix3):
         # Base condition: accounting for all the strings
         if ix3 >= len(s3) and ix2 >= len(s2) and ix1 >= len(s1):
             return True
@@ -37,21 +33,17 @@ def interleaving_string(s1: str, s2: str, s3: str) -> bool:
         # Check s1
         s1_check = False
         if ix1 < len(s1) and ix3 < len(s3) and s1[ix1] == s3[ix3]:
-            if ix3 > 0 and not is_s1:
-                sc2 += 1
-            s1_check = helper(ix1 + 1, ix2, ix3 + 1, sc1, sc2, True)
+            s1_check = helper(ix1 + 1, ix2, ix3 + 1)
 
         # Check s2
         s2_check = False
         if ix2 < len(s2) and ix3 < len(s3) and s2[ix2] == s3[ix3]:
-            if ix3 > 0 and is_s1:
-                sc1 += 1
-            s2_check = helper(ix1, ix2 + 1, ix3 + 1, sc1, sc2, False)
+            s2_check = helper(ix1, ix2 + 1, ix3 + 1)
 
         dp[(ix1, ix2)] = s1_check or s2_check
         return dp[(ix1, ix2)]
 
-    return helper(0, 0, 0, 1, 1, False)
+    return helper(0, 0, 0)
 
 
 if __name__ == '__main__':
