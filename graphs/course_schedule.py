@@ -22,7 +22,7 @@ def course_schedule(numCourses: int, prerequisites: List[List[int]]) -> bool:
 
     for course, pre_req in prerequisites:
         pre_req_adj_list[course].add(pre_req)
-    print(pre_req_adj_list)
+    # print(pre_req_adj_list)
 
     def dfs(curr_course):
         if len(pre_req_adj_list[curr_course]) == 0:
