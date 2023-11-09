@@ -8,8 +8,6 @@ def shortest_path(n: int, edges: List[List[int]], src: int) -> Dict[int, int]:
     for sr, dt, wt in edges:
         adj_list[sr].append((dt, wt))
 
-    print(adj_list)
-
     # initialize every node weight as -1 (weight of unreachable node)
     node_map = {i: -1 for i in range(n)}
 
