@@ -1,3 +1,4 @@
+from collections import deque
 from typing import Optional
 
 
@@ -35,11 +36,31 @@ def max_depth_binary_tree(root: Optional[TreeNode]) -> int:
     # max_depth = 0
     # return max(max_depth, pre_order_traversal_depth(root, max_depth))
 
-    # Other Solution
+    # # Other Recursive Solution
+    # if not root:
+    #     return 0
+    #
+    # return 1 + max(max_depth_binary_tree(root.left), max_depth_binary_tree(root.right))
+
+    # BFS Solution using Queue
     if not root:
         return 0
 
-    return 1 + max(max_depth_binary_tree(root.left), max_depth_binary_tree(root.right))
+    depth = 0
+    queue = deque()
+    queue.append(root)
+
+    while queue:
+        for idx in range(len(queue)):
+            curr_node = queue.popleft()
+            if curr_node.left:
+                queue.append(curr_node.left)
+            if curr_node.right:
+                queue.append(curr_node.right)
+
+        depth += 1
+
+    return depth
 
 
 if __name__ == "__main__":
