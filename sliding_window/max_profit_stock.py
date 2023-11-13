@@ -16,18 +16,27 @@ def max_profit_stock(prices: List[int]) -> int:
     Returns:
         max profit; otherwise 0 if there is no profit
     """
-    if len(prices) < 2:
-        return 0
+    # # Initial Solution
+    # if len(prices) < 2:
+    #     return 0
+    #
+    # start, end = 0, 1
+    #
+    # max_profit = 0
+    #
+    # while end < len(prices):
+    #     if prices[end] <= prices[start]:
+    #         start = end
+    #     max_profit = max(max_profit, prices[end] - prices[start])
+    #     end += 1
+    #
+    # return max_profit
 
-    start, end = 0, 1
+    max_profit, min_buy = 0, float('inf')
 
-    max_profit = 0
-
-    while end < len(prices):
-        if prices[end] <= prices[start]:
-            start = end
-        max_profit = max(max_profit, prices[end] - prices[start])
-        end += 1
+    for price in prices:
+        min_buy = min(min_buy, price)
+        max_profit = max(max_profit, price - min_buy)
 
     return max_profit
 
