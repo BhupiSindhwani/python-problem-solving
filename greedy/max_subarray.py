@@ -11,14 +11,27 @@ def max_subarray(nums: List[int]) -> int:
     Returns:
         sum of the subarray with the largest sum
     """
-    max_sum = nums[0]
+    # # Initial Solution
+    # max_sum = nums[0]
+    #
+    # curr_sum = 0
+    # for num in nums:
+    #     curr_sum += num
+    #     max_sum = max(max_sum, curr_sum)
+    #     if curr_sum < 0:
+    #         curr_sum = 0
+    #
+    # return max_sum
 
+    # Refactored Solution
+    max_sum = float('-inf')
     curr_sum = 0
+
     for num in nums:
         curr_sum += num
+        if curr_sum <= num:
+            curr_sum = num
         max_sum = max(max_sum, curr_sum)
-        if curr_sum < 0:
-            curr_sum = 0
 
     return max_sum
 
