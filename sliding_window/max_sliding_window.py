@@ -18,25 +18,47 @@ def max_sliding_window(nums: List[int], k: int) -> List[int]:
     Returns:
         an array of integers consisting of the maximum of each sliding window
     """
+    # result = []
+    #
+    # if len(nums) < k:
+    #     return result
+    #
+    # dq = collections.deque()
+    #
+    # start = end = 0
+    #
+    # while end < len(nums):
+    #     while dq and nums[dq[-1]] < nums[end]:
+    #         dq.pop()
+    #     dq.append(end)
+    #
+    #     if start > dq[0]:
+    #         dq.popleft()
+    #
+    #     if end + 1 >= k:
+    #         result.append(nums[dq[0]])
+    #         start += 1
+    #
+    #     end += 1
+    #
+    # return result
+
+    # Refactored solution ( bit more intuitive)
     result = []
+    queue = collections.deque()
 
-    if len(nums) < k:
-        return result
-
-    dq = collections.deque()
-
-    start = end = 0
+    start, end = 0, 0
 
     while end < len(nums):
-        while dq and nums[dq[-1]] < nums[end]:
-            dq.pop()
-        dq.append(end)
-
-        if start > dq[0]:
-            dq.popleft()
+        # pop smaller values from the queue
+        while queue and queue[-1] < nums[end]:
+            queue.pop()
+        queue.append(nums[end])
 
         if end + 1 >= k:
-            result.append(nums[dq[0]])
+            result.append(queue[0])
+            if nums[start] == queue[0]:
+                queue.popleft()
             start += 1
 
         end += 1
