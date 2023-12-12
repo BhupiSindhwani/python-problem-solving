@@ -45,23 +45,40 @@ def count_good_nodes_in_binary_tree(root: TreeNode) -> int:
     #
     # return num_good_nodes
 
-    # Solution using DFS
-    num_good_nodes = 0
+    # # Solution using DFS
+    # num_good_nodes = 0
+    #
+    # def preorder_traversal(node: Optional[TreeNode], max_val: int) -> None:
+    #
+    #     nonlocal num_good_nodes
+    #
+    #     if node:
+    #         if node.val >= max_val:
+    #             num_good_nodes += 1
+    #         max_val = max(max_val, node.val)
+    #         preorder_traversal(node.left, max_val)
+    #         preorder_traversal(node.right, max_val)
+    #
+    # preorder_traversal(root, root.val)
+    #
+    # return num_good_nodes
 
-    def preorder_traversal(node: Optional[TreeNode], max_val: int) -> None:
+    # Solution using DFS - Refactored without nonlocal variable
+    def dfs(node: TreeNode, max_val: int) -> int:
 
-        nonlocal num_good_nodes
+        # Base Condition
+        if not node:
+            return 0
 
-        if node:
-            if node.val >= max_val:
-                num_good_nodes += 1
-            max_val = max(max_val, node.val)
-            preorder_traversal(node.left, max_val)
-            preorder_traversal(node.right, max_val)
+        left = dfs(node.left, max(node.val, max_val))
+        right = dfs(node.right, max(node.val, max_val))
 
-    preorder_traversal(root, root.val)
+        if node.val < max_val:
+            return 0 + left + right
 
-    return num_good_nodes
+        return 1 + left + right
+
+    return dfs(root, root.val)
 
 
 if __name__ == "__main__":
