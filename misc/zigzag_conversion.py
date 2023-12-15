@@ -21,9 +21,9 @@ def zigzag_conversion(s: str, numRows: int) -> str:
 
     for row in range(numRows):
         inc1 = (numRows - 1) * 2
+        inc2 = (numRows - row - 1) * 2
         for idx in range(row, len(s), inc1):
             result += s[idx]
-            inc2 = (numRows - row - 1) * 2
             if 0 < row < numRows - 1\
                     and idx + inc2 < len(s):
                 result += s[idx + inc2]
