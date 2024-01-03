@@ -12,22 +12,35 @@ def merge_intervals(intervals: List[List[int]]) -> List[List[int]]:
     Returns:
         an array of the non-overlapping intervals that cover all the intervals in the input
     """
-    if len(intervals) <= 1:
-        return intervals
+    # # Initial Solution
+    # if len(intervals) <= 1:
+    #     return intervals
+    #
+    # output = []
+    # intervals.sort(key=lambda x: x[0])
+    # prev = intervals[0]
+    #
+    # for curr in intervals:
+    #     if curr[0] <= prev[1]:
+    #         prev[1] = max(prev[1], curr[1])
+    #     else:
+    #         output.append(prev)
+    #         prev = curr
+    #
+    # output.append(prev)
+    # return output
 
-    output = []
-    intervals.sort(key=lambda x: x[0])
-    prev = intervals[0]
+    # Refactored Solution
+    intervals.sort(key=lambda x: x[0])  # Sort the intervals by starting interval
+    merged_intervals = [intervals[0]]
 
-    for curr in intervals:
-        if curr[0] <= prev[1]:
-            prev[1] = max(prev[1], curr[1])
+    for start, end in intervals[1:]:
+        if start <= merged_intervals[-1][1]:
+            merged_intervals[-1][1] = max(end, merged_intervals[-1][1])
         else:
-            output.append(prev)
-            prev = curr
+            merged_intervals.append([start, end])
 
-    output.append(prev)
-    return output
+    return merged_intervals
 
 
 if __name__ == "__main__":
