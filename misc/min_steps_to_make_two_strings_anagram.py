@@ -34,6 +34,21 @@ def min_steps_to_make_two_strings_anagram(s: str, t: str) -> int:
 
     # return num_steps
 
+    # num_steps = 0
+
+    # char_freq = [0]*26
+
+    # for idx in range(len(s)):
+    #     char_freq[ord(s[idx])-ord('a')] += 1
+    #     char_freq[ord(t[idx])-ord('a')] -= 1
+
+    # # print(char_freq)
+    # for char in char_freq:
+    #     if char > 0:
+    #         num_steps += char
+
+    # return num_steps
+
     num_steps = 0
 
     char_freq = defaultdict(int)
