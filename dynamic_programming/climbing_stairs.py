@@ -32,17 +32,40 @@ def climbing_stairs(n: int) -> int:
     #
     # return dp[n - 1]
 
-    # Solution using dynamic programming with two variables
-    if n == 1:
-        return 1
+    # # Solution using dynamic programming with two variables
+    # if n == 1:
+    #     return 1
+    #
+    # one, two = 1, 2
+    #
+    # for num in range(3, n + 1):
+    #     new = one + two
+    #     one, two = two, new
+    #
+    # return two
 
-    one, two = 1, 2
+    # Solution using dynamic programming with memoization
+    cache = {n: 1}  # curr_steps -> num_combinations
 
-    for num in range(3, n + 1):
-        new = one + two
-        one, two = two, new
+    def backtrack(curr_steps):
 
-    return two
+        # base condition
+        if curr_steps > n:
+            return 0
+
+        if curr_steps in cache:
+            return cache[curr_steps]
+
+        # 1 step
+        one_step = backtrack(curr_steps + 1)
+
+        # 2 step
+        two_step = backtrack(curr_steps + 2)
+
+        cache[curr_steps] = one_step + two_step
+        return cache[curr_steps]
+
+    return backtrack(0)
 
 
 if __name__ == "__main__":
