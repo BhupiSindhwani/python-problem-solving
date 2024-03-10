@@ -46,11 +46,13 @@ def sort_array_by_parity(nums: List[int]) -> List[int]:
     left, right = 0, len(nums) - 1
 
     while left < right:
-        while left < right and nums[left] % 2 == 0:
+        if nums[left] % 2 == 0:  # even
             left += 1
-        while left < right and nums[right] % 2 != 0:
-            right -= 1
-        nums[left], nums[right] = nums[right], nums[left]
+        else:  # odd
+            if nums[right] % 2 == 0:
+                nums[left], nums[right] = nums[right], nums[left]
+            else:
+                right -= 1
 
     return nums
 
